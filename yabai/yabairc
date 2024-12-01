@@ -1,6 +1,7 @@
 #!bin/sh
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 yabai -m config layout bsp
 yabai -m config window_placement second_child
@@ -16,7 +17,7 @@ yabai -m config window_gap     20
 # example: render all unfocused windows with 90% opacity
 yabai -m config window_opacity on
 
-yabai -m config active_window_opacity 1
+# yabai -m config active_window_opacity 1
 yabai -m config normal_window_opacity 0.97
 
 # yabai -m rule --add app="^Code$" opacity=0.1
@@ -31,10 +32,6 @@ yabai -m config mouse_modifier alt
 yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
 yabai -m config mouse_action2 resize
-
-
-# when window is dropped in center of another window, swap them (on edges it will split it)
-yabai -m mouse_drop_action swap
 
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
@@ -52,7 +49,3 @@ yabai -m config external_bar all:30:0
 
 # set mouse follows focus mode (default: off)
 yabai -m config mouse_follows_focus off
-
-# floating windows are always on top (default: off)
-yabai -m config window_topmost off
-yabai -m config window_shadow off

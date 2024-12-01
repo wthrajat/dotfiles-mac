@@ -28,7 +28,7 @@ cmd - q : : "
 
 # Applications shortcut
 alt - w : open -na /Applications/Firefox.app
-# alt - return : open -na /Applications/Alacritty.app
+alt - return : open -n /Applications/Alacritty.app
 
 
 
