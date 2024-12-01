@@ -4,12 +4,12 @@ RED=0xFFBE425E
 GREEN=0xFF7E9853
 
 # main bar & defaults
-sketchybar --bar height=40        \
-                 margin=12        \
+sketchybar --bar height=45        \
+                 margin=20        \
                  y_offset=0       \
                  padding_left=0   \
                  padding_right=0  \
-                 color=0x00000000
+                 color=0x00000000 \
 
 sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:14.0"  \
@@ -86,34 +86,34 @@ sketchybar --set space_ex.1 padding_left=-999999
 # update defaults
 sketchybar --default                                                \
                      background.color=0xEB1e1e2e                    \
-                     blur_radius=2                                  \
+                     blur_radius=5                                  \
                      background.corner_radius=15                    \
                      background.height=30                           \
                      icon.padding_left=12                           \
                      icon.padding_right=4                           \
-                     label.padding_left=4                           \
-                     label.padding_right=12                         \
-                     background.padding_left=18                     \
+                     label.padding_left=5                          \
+                     label.padding_right=15                         \
+                     background.padding_left=20                     \
                      background.border_width=1
 
 
 # ~~ center items ~~
 
-# app title
-sketchybar --add event title_change
-sketchybar --add item title center                                  \
-           --set      title label.padding_left=12                   \
-                            label="Title"                           \
-                            background.padding_left=0               \
-                            icon.padding_left=0                     \
-                            icon.padding_right=0                    \
-                            script='./scripts/title.sh'             \
-                            background.border_color=0x77ADADAD      \
-                            label.max_chars=54                      # \
-                            # scroll_texts=on                         \
-                            # label.scroll_duration=200
+# # app title
+# sketchybar --add event title_change
+# sketchybar --add item title center                                  \
+#            --set      title label.padding_left=12                   \
+#                             label="Title"                           \
+#                             background.padding_left=0               \
+#                             icon.padding_left=0                     \
+#                             icon.padding_right=0                    \
+#                             script='./scripts/title.sh'             \
+#                             background.border_color=0x77ADADAD      \
+#                             label.max_chars=54                      # \
+#                             # scroll_texts=on                         \
+#                             # label.scroll_duration=200
 
-sketchybar --subscribe title title_change
+# sketchybar --subscribe title title_change
 
 
 # ~~ right items ~~
@@ -136,14 +136,14 @@ sketchybar --add item date right                                    \
                            script='./scripts/date.sh'               \
                            update_freq=10
 
-# weather
-sketchybar --add item weather right                                 \
-           --set      weather icon=A                                \
-                              icon.color=$BLUE                      \
-                              background.border_color=$BLUE         \
-                              label="--°F"                          \
-                              script='./scripts/weather.sh'         \
-                              update_freq=60
+# # weather
+# sketchybar --add item weather right                                 \
+#            --set      weather icon=A                                \
+#                               icon.color=$BLUE                      \
+#                               background.border_color=$BLUE         \
+#                               label="--°F"                          \
+#                               script='./scripts/weather.sh'         \
+#                               update_freq=60
 
 # battery
 sketchybar --add item battery right                                 \
