@@ -18,10 +18,11 @@ alt + shift - 0 : yabai -m window --space 10;
 # ctrl + alt - q : yabai --stop-service
 # ctrl + alt - s : yabai --start-service
 ctrl + shift - r : yabai --restart-service
-alt + shift - q : skhd -k "cmd - q "
+# alt + shift - q : skhd -k "cmd - q "
 
-# alt + shift - q   : kill $(yabai -m query --windows --window | jq .pid)
-# cmd - q : : "
+# Kill last instance of a window
+alt + shift - q : ~/.config/yabai/kill_last_instance.sh
+cmd - q : : "
 
 
 
@@ -35,17 +36,6 @@ alt - w : open -na /Applications/Firefox.app
 alt - tab :     yabai -m space --focus recent
 # ctrl - right :  yabai -m space --focus next
 # ctrl - z :      yabai -m space --focus recent
-
-alt - 1 : yabai -m space --focus 1
-alt - 2 : yabai -m space --focus 2
-alt - 3 : yabai -m space --focus 3
-alt - 4 : yabai -m space --focus 4
-alt - 5 : yabai -m space --focus 5
-alt - 6 : yabai -m space --focus 6
-alt - 7 : yabai -m space --focus 7
-alt - 8 : yabai -m space --focus 8
-alt - 9 : yabai -m space --focus 9
-alt - 0 : yabai -m space --focus 10
 
 
 ## FOCUS
@@ -79,5 +69,28 @@ ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap e
 # id="$()"
 cmd - tab :  yabai -m space --focus "$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')"
 
-# cycle backwards on the focused display
-# id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+# alt - delete : yabai -m space --destroy "$(yabai -m query --spaces --display | jq -r 'map(select(."has-focus" == true))[0].index')"
+
+
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+ctrl + alt - n : yabai -m space --create && \
+                index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                # yabai -m window --space "${index}" && \
+                yabai -m space --focus "${index}" && \
+                sketchybar -m --trigger space_change && hs -c "hs.alert.show('Window Moved To New Space')"
+
+
+
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+alt - 0 : yabai -m space --focus 10
+
+# destroy desktop
+ctrl + alt - k : yabai -m space --destroy && yabai -m window --focus recent && sketchybar -m --trigger space_change && hs -c "hs.alert.show('Space Destroyed')"

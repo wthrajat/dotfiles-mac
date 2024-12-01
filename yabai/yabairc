@@ -1,7 +1,6 @@
 #!bin/sh
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-sudo yabai --load-sa
 
 yabai -m config layout bsp
 yabai -m config window_placement second_child
@@ -12,7 +11,6 @@ yabai -m config bottom_padding 20
 yabai -m config left_padding   20
 yabai -m config right_padding  20
 yabai -m config window_gap     20
-
 
 # window opacity (default: off)
 # example: render all unfocused windows with 90% opacity
@@ -25,7 +23,7 @@ yabai -m config normal_window_opacity 0.97
 
 
 # center mouse on window with focus
-yabai -m config mouse_follows_focus on
+# yabai -m config mouse_follows_focus on
 
 # modifier for clicking and dragging with mouse
 yabai -m config mouse_modifier alt
@@ -48,12 +46,13 @@ yabai -m config focus_follows_mouse          autofocus
 
 # when window is dropped in center of another window, swap them (on edges it will split it)
 
-# yabai -m config external_bar all:30:0
+yabai -m config external_bar all:30:0
 
 
 
-# cycle forwards on the focused display
-id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+# set mouse follows focus mode (default: off)
+yabai -m config mouse_follows_focus off
 
-# cycle backwards on the focused display
-id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+# floating windows are always on top (default: off)
+yabai -m config window_topmost off
+yabai -m config window_shadow off
