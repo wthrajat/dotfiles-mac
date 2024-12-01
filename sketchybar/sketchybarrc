@@ -126,7 +126,7 @@ sketchybar --add item time right                                    \
                            background.border_color=$PURPLE          \
                            label="$(date '+%I:%M %p')"              \
                            script='./scripts/time.sh'               \
-                           update_freq=1
+                           update_freq=60
 
 # date
 sketchybar --add item date right                                    \
@@ -153,7 +153,7 @@ sketchybar --add item battery right                                 \
                               background.border_color=$GREEN        \
                               label="--%"                           \
                               script='./scripts/battery.sh'         \
-                              update_freq=1
+                              update_freq=60
 
 # finish config
 sketchybar --update

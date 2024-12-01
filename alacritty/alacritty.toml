@@ -44,7 +44,7 @@ padding.y = 20
 decorations = "none"
 dynamic_padding = true
 
-opacity = 0.3
+opacity = 0.7
 blur = true
 
 option_as_alt = "Both"
