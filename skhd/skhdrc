@@ -1,10 +1,5 @@
-#change focus between external displays (left and right)
-alt - s: yabai -m display --focus west
-alt - g: yabai -m display --focus east
-
 # Full screen
 alt - f : yabai -m window --toggle zoom-fullscreen
-
 
 
 # move window to space #
@@ -23,17 +18,21 @@ alt + shift - 0 : yabai -m window --space 10;
 # ctrl + alt - q : yabai --stop-service
 # ctrl + alt - s : yabai --start-service
 ctrl + shift - r : yabai --restart-service
+alt + shift - q : skhd -k "cmd - q "
+
+# alt + shift - q   : kill $(yabai -m query --windows --window | jq .pid)
+# cmd - q : : "
+
+
 
 # Applications shortcut
-alt - return : open -na /Applications/Alacritty.app
 alt - w : open -na /Applications/Firefox.app
-
-# Switching spaces
+# alt - return : open -na /Applications/Alacritty.app
 
 
 
 # # fast focus desktop
-# alt + tab :     yabai -m space --focus recent
+alt - tab :     yabai -m space --focus recent
 # ctrl - right :  yabai -m space --focus next
 # ctrl - z :      yabai -m space --focus recent
 
@@ -58,10 +57,10 @@ ctrl - down :   yabai -m window --focus south
 
 ## MOVE
 
-ctrl + shift - left : yabai -m window --warp west
-ctrl + shift - right : yabai -m window --warp east
-ctrl + shift - up : yabai -m window --warp north
-ctrl + shift - down : yabai -m window --warp south
+alt + shift - left : yabai -m window --warp west
+alt + shift - right : yabai -m window --warp east
+alt + shift - up : yabai -m window --warp north
+alt + shift - down : yabai -m window --warp south
 
 ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap east
 
@@ -73,7 +72,12 @@ ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap e
 # ctrl + alt - o : yabai -m window --resize bottom:0:40 & yabai -m window --resize top:0:-40
 # ctrl + alt - p : yabai -m window --resize right:-40:0 & yabai -m window --resize left:40:0
 
+# cmd - tab : : "
 
 
-alt - tab : yabai -m space --focus recent
-alt + shift - q : skhd -k "cmd - q "
+# cycle forwards on the focused display
+# id="$()"
+cmd - tab :  yabai -m space --focus "$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')"
+
+# cycle backwards on the focused display
+# id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
