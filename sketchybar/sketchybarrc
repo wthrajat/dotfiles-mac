@@ -10,6 +10,7 @@ sketchybar --bar height=45        \
                  padding_left=0   \
                  padding_right=0  \
                  color=0x00000000 \
+                 blur_radius=100
 
 sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:14.0"  \
@@ -21,7 +22,7 @@ sketchybar --default updates=when_shown                             \
 # ~~ left items ~~
 
 # space numbers
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "")
 SPACES=()
 
 for i in "${!SPACE_ICONS[@]}"
@@ -82,7 +83,7 @@ do
 done
 
 sketchybar --set space_ex.1 padding_left=-999999
-
+# TRANSPARENT=0x00000000
 # update defaults
 sketchybar --default                                                \
                      background.color=0xEB1e1e2e                    \
@@ -91,7 +92,7 @@ sketchybar --default                                                \
                      background.height=30                           \
                      icon.padding_left=12                           \
                      icon.padding_right=4                           \
-                     label.padding_left=5                          \
+                     label.padding_left=5                           \
                      label.padding_right=15                         \
                      background.padding_left=20                     \
                      background.border_width=1
