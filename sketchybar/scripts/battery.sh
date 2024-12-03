@@ -9,19 +9,19 @@ fi
 
 case ${PERCENTAGE} in
 [8-9][0-9] | 100)
-    ICON=""
+    ICON="􀛨"
     ;;
 7[0-9])
-    ICON=""
+    ICON="􀺸"
     ;;
 [4-6][0-9])
-    ICON=""
+    ICON="􀺶"
     ;;
 [1-3][0-9])
-    ICON=""
+    ICON="􀛩"
     ;;
 [0-9])
-    ICON=""
+    ICON="􀛪"
     ;;
 esac
 

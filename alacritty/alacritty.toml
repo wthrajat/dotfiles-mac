@@ -33,13 +33,13 @@ opacity = 0.5
 blur = true
 option_as_alt = "Both"
 
-  [window.padding]
-  x = 20
-  y = 20
+[window.padding]
+x = 20
+y = 20
 
 [font]
 size = 16
 
-  [font.normal]
-  family = "MesloLGS Nerd Font Mono"
-  style = "Regular"
+[font.normal]
+family = "MesloLGS Nerd Font Mono"
+style = "Regular"

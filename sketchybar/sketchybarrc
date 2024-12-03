@@ -2,18 +2,29 @@ BLUE=0xFF1E6E77
 PURPLE=0xFFA753EA
 RED=0xFFBE425E
 GREEN=0xFF7E9853
+TRANSPARENT=0x00000000
+WHITE=0xffffffff
 
 # main bar & defaults
-sketchybar --bar height=45        \
-                 margin=20        \
+sketchybar --bar height=32      \
+                 margin=0        \
                  y_offset=0       \
                  padding_left=0   \
                  padding_right=0  \
-                 color=0x00000000 \
-                 blur_radius=0
+                 drawing=on\
+                 color=$TRANSPARENT \
+                 blur_radius=30
+
+
+# sketchybar --bar height=32        \
+#                  blur_radius=50   \
+#                  position=top     \
+#                  padding_left=10  \
+#                  padding_right=10 \
+#                  color=0x15ffffff 
 
 sketchybar --default updates=when_shown                             \
-                     icon.font="Liga SFMono Nerd Font:Normal:14.0"  \
+                     icon.font="Liga SFMono Nerd Font:Normal:16.0"  \
                      icon.color=0xFFFFFFFF                          \
                      label.font="Liga SFMono Nerd Font:Normal:14.0" \
                      background.color=0x00000000                    \
@@ -22,7 +33,7 @@ sketchybar --default updates=when_shown                             \
 # ~~ left items ~~
 
 # space numbers
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "")
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "􀣺")
 SPACES=()
 
 for i in "${!SPACE_ICONS[@]}"
@@ -121,8 +132,8 @@ sketchybar --default                                                \
 
 # time
 sketchybar --add item time right                                    \
-           --set      time icon=󱑎                                   \
-                           icon.color=$PURPLE                       \
+           --set      time icon=􀐬                                   \
+                           icon.color=0xff91d9d1                      \
                            background.border_color=$PURPLE          \
                            label="$(date '+%I:%M %p')"              \
                            script='./scripts/time.sh'               \
@@ -130,12 +141,37 @@ sketchybar --add item time right                                    \
 
 # date
 sketchybar --add item date right                                    \
-           --set      date icon=󱨰                                   \
-                           icon.color=$RED                          \
+           --set      date icon=􀧞                                   \
+                           icon.color=0xff91d9d1                          \
                            background.border_color=$RED             \
                            label="$(date '+%a %b %d')"              \
                            script='./scripts/date.sh'               \
                            update_freq=10
+
+
+# date
+sketchybar --add item cpu right                                    \
+           --set      cpu icon.color=0xff91d9d1                         \
+                           background.border_color=$RED             \
+                           script='./scripts/cpu.sh'               \
+                           update_freq=3\
+
+
+# sketchybar --add item cpu right \
+# 	--set cpu \
+# 	update_freq=3 \
+# 	icon.color="$RED" \
+# 	icon.padding_left=10 \
+# 	label.color="$RED" \
+# 	label.padding_right=10 \
+# 	background.height=26 \
+# 	background.corner_radius="$CORNER_RADIUS" \
+# 	background.padding_right=5 \
+# 	background.border_width="$BORDER_WIDTH" \
+# 	background.border_color="$RED" \
+# 	background.color="$RED" \
+# 	background.drawing=on \
+# 	script="./scripts/cpu.sh"
 
 # # weather
 # sketchybar --add item weather right                                 \
@@ -156,22 +192,6 @@ sketchybar --add item battery right                                 \
                               update_freq=60
 
 
-
-sketchybar --add item cpu right \
-	--set cpu \
-	update_freq=3 \
-	icon.color="$COLOR" \
-	icon.padding_left=10 \
-	label.color="$COLOR" \
-	label.padding_right=10 \
-	background.height=26 \
-	background.corner_radius="$CORNER_RADIUS" \
-	background.padding_right=5 \
-	background.border_width="$BORDER_WIDTH" \
-	background.border_color="$COLOR" \
-	background.color="$BAR_COLOR" \
-	background.drawing=on \
-	script="./scripts/cpu.sh"
 # finish config
 sketchybar --update
 sketchybar --hotload on
