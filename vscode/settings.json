@@ -1,11 +1,10 @@
 {
     "workbench.sideBar.location": "right",
-    "workbench.colorTheme": "Monokai",
     "explorer.confirmDelete": false,
     "files.autoSave": "afterDelay",
     "editor.wordWrap": "on",
-    "editor.fontSize": 15,
-    "editor.fontFamily": "MesloLGS Nerd Font Mono",
+    "editor.fontSize": 16,
+    "editor.fontFamily": "Liga SFMono Nerd",
     "editor.fontLigatures": true,
     "workbench.iconTheme": "file-icons",
     "explorer.confirmDragAndDrop": false,
@@ -17,9 +16,12 @@
     "terminal.integrated.cursorWidth": 2,
     "terminal.integrated.cursorStyleInactive": "underline",
     "terminal.integrated.fontFamily": "MesloLGS Nerd Font Mono",
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 16,
     "editor.cursorSurroundingLines": 15,
     "editor.cursorSmoothCaretAnimation": "on",
-    "editor.cursorBlinking": "phase"
-
+    "editor.cursorBlinking": "phase",
+    "extensions.ignoreRecommendations": true,
+    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "window.zoomPerWindow": false,
 }

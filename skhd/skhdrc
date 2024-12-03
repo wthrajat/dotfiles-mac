@@ -27,9 +27,9 @@ cmd - q : : "
 
 
 # Applications shortcut
-alt - w : open -n /Applications/Firefox.app
+# alt - w : open -n /Applications/Firefox.app
 cmd - return : open -n /Applications/Alacritty.app
-
+cmd - backspace : skhd -k "lalt + backspace "
 
 
 # # fast focus desktop
