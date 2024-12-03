@@ -43,3 +43,8 @@ size = 16
 [font.normal]
 family = "MesloLGS Nerd Font Mono"
 style = "Regular"
+
+[terminal]
+
+[terminal.shell]
+program = "/opt/homebrew/bin/fish"
