@@ -8,9 +8,9 @@ WHITE=0xffffffff
 # main bar & defaults
 sketchybar --bar height=32      \
                  margin=0        \
-                 y_offset=0       \
-                 padding_left=0   \
-                 padding_right=0  \
+                 y_offset=4       \
+                 padding_left=20   \
+                 padding_right=20  \
                  drawing=on\
                  color=$TRANSPARENT \
                  blur_radius=30
@@ -27,7 +27,7 @@ sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:16.0"  \
                      icon.color=0xFFFFFFFF                          \
                      label.font="Liga SFMono Nerd Font:Normal:14.0" \
-                     background.color=0x00000000                    \
+                     background.color=$TRANSPARENT                  \
                      y_offset=0
 
 # ~~ left items ~~
@@ -55,15 +55,17 @@ sketchybar --add item new_space left                        \
            --set      new_space icon.width=24               \
                                 label.padding_right=2      \
                                 icon.align=center           \
-                                icon.padding_right=2        \
+                                icon.padding_right=0        \
                                 icon=􀣺                     \
                                 click_script='./scripts/new_space.sh'
 
 # consolidate space numbers and add a background
 sketchybar --add bracket spaces '/space\..*/' new_space                \
            --set         spaces background.color=0xEB1e1e2e            \
+                                background.padding_left=0\
+                                background.padding_right=0\
                                 background.corner_radius=15             \
-                                background.border_width=              \
+                                background.border_width=0              \
                                 background.border_color=$BLUE          \
                                 blur_radius=0                         \
                                 background.height=30                    
@@ -88,7 +90,7 @@ do
                               icon=${SPACE_ICONS[i]} \
                               icon.highlight_color=0xFFFFFFFF \
                               icon.align=center \
-                              icon.width=30 \
+                              icon.width=0 \
                               label.drawing=off \
                               click_script="yabai -m space --focus $sid" 
 done
