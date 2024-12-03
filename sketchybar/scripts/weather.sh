@@ -118,7 +118,6 @@ for i in {1..4}; do
             echo "[ERROR] [$(gdate --iso-8601=seconds)] Weather API request failed 4 times" >&2
             exit 0
         fi
-        sleep 10
     else
         break
     fi

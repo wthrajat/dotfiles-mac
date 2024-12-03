@@ -1,3 +1,7 @@
+import = [
+  "/Users/rajat/.nvm/versions/node/v23.3.0/lib/node_modules/alacritty-themes/themes/Dawn.toml"
+]
+
 [colors.bright]
 black = "#709080"
 blue = "#94bff3"

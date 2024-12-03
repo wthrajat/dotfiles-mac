@@ -10,7 +10,7 @@ sketchybar --bar height=45        \
                  padding_left=0   \
                  padding_right=0  \
                  color=0x00000000 \
-                 blur_radius=100
+                 blur_radius=0
 
 sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:14.0"  \
@@ -22,7 +22,7 @@ sketchybar --default updates=when_shown                             \
 # ~~ left items ~~
 
 # space numbers
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "")
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "")
 SPACES=()
 
 for i in "${!SPACE_ICONS[@]}"
@@ -32,7 +32,7 @@ do
   sketchybar --add space space.$sid left \
              --set space.$sid associated_space=$sid \
                               icon=${SPACE_ICONS[i]} \
-                              icon.highlight_color=0xFFFFFFFF \
+                              icon.highlight_color=0x00000000  \
                               icon.align=center \
                               icon.width=30 \
                               label.drawing=off \
@@ -42,25 +42,25 @@ done
 # create new space button
 sketchybar --add item new_space left                        \
            --set      new_space icon.width=24               \
-                                label.padding_right=2       \
+                                label.padding_right=2      \
                                 icon.align=center           \
                                 icon.padding_right=2        \
-                                icon=+                      \
+                                icon=􀣺                     \
                                 click_script='./scripts/new_space.sh'
 
 # consolidate space numbers and add a background
 sketchybar --add bracket spaces '/space\..*/' new_space                \
            --set         spaces background.color=0xEB1e1e2e            \
-                                background.corner_radius=15            \
-                                background.border_width=1              \
+                                background.corner_radius=15             \
+                                background.border_width=              \
                                 background.border_color=$BLUE          \
-                                blur_radius=2                          \
+                                blur_radius=0                         \
                                 background.height=30                    
 
 # add space highlighter dot
 sketchybar --add item highlight_space left                      \
            --set      highlight_space width=22                  \
-                                      background.color=$BLUE    \
+                                      background.color=0xff0e64ef   \
                                       background.height=22      \
                                       background.corner_radius=11 \
                                       script='./scripts/highlight_space.sh'
@@ -91,11 +91,11 @@ sketchybar --default                                                \
                      background.corner_radius=15                    \
                      background.height=30                           \
                      icon.padding_left=12                           \
-                     icon.padding_right=4                           \
+                     icon.padding_right=5                           \
                      label.padding_left=5                           \
                      label.padding_right=15                         \
                      background.padding_left=20                     \
-                     background.border_width=1
+                     background.border_width=0
 
 
 # ~~ center items ~~
@@ -155,6 +155,23 @@ sketchybar --add item battery right                                 \
                               script='./scripts/battery.sh'         \
                               update_freq=60
 
+
+
+sketchybar --add item cpu right \
+	--set cpu \
+	update_freq=3 \
+	icon.color="$COLOR" \
+	icon.padding_left=10 \
+	label.color="$COLOR" \
+	label.padding_right=10 \
+	background.height=26 \
+	background.corner_radius="$CORNER_RADIUS" \
+	background.padding_right=5 \
+	background.border_width="$BORDER_WIDTH" \
+	background.border_color="$COLOR" \
+	background.color="$BAR_COLOR" \
+	background.drawing=on \
+	script="./scripts/cpu.sh"
 # finish config
 sketchybar --update
 sketchybar --hotload on
