@@ -3,3 +3,5 @@ if status is-interactive
 end
 
 set -x LANG en_US.UTF-8
+
+set PATH /Users/rajat/.nvm/versions/node/v23.3.0/bin $PATH
