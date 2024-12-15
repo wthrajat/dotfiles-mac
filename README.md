@@ -17,9 +17,9 @@
 
 ### Hardware
 
-| Spec | Value |
-|:---: |:---:|
+<!-- | Spec | Value | -->
 | Model | M4 Pro |
+|:---: |:---:|
 | CPU | 14 Cores |
 | GPU | 20 Cores |
 | Neural Engine | 16 Cores |
