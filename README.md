@@ -1,4 +1,4 @@
-# MacOS Dots
+# macOS Dots
 I riced most of these from scratch. Copy at your own risk.
 
 ## Screenshots
@@ -18,7 +18,6 @@ I riced most of these from scratch. Copy at your own risk.
 
 ## Hardware
 
-<!-- | Spec | Value | -->
 | Model | M4 Pro |
 |:---: |:---:|
 | CPU | 14 Cores |
@@ -45,5 +44,5 @@ I riced most of these from scratch. Copy at your own risk.
 | Package Manager | [homebrew](https://brew.sh/) |
 
 
-### Moto
+## Moto
 Backup for my configs, can't rice my machine again and again :")
