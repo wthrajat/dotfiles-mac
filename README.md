@@ -1,18 +1,5 @@
 # MacOS Dots
 
-### Hardware
-
-| Spec | Value |
-|:---: |:---:|
-| Model | M4 Pro |
-| CPU | 14 Cores |
-| GPU | 20 Cores |
-| Neural Engine | 16 Cores |
-| macOS | Sequoia |
-| Screen | 14.2" Nano-texture @3024x1964 |
-| RAM | 48 GB |
-| SSD | 1 TB |
-
 ### Screenshots
 
 #### Terminal Workspace
@@ -33,7 +20,18 @@
 
 <hr>
 
+### Hardware
 
+| Spec | Value |
+|:---: |:---:|
+| Model | M4 Pro |
+| CPU | 14 Cores |
+| GPU | 20 Cores |
+| Neural Engine | 16 Cores |
+| macOS | Sequoia |
+| Screen | 14.2" Nano-texture @3024x1964 |
+| RAM | 48 GB |
+| SSD | 1 TB |
 
 
 
