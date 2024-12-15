@@ -46,5 +46,4 @@ I riced most of these from scratch. Copy at your own risk.
 
 
 ### Moto
-Backup for my configs, can't rice my machine again and again ;)
-<hr>
+Backup for my configs, can't rice my machine again and again :")
