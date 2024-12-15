@@ -1,15 +1,64 @@
-DOnt use fish for yabai
-see https://github.com/koekeishiya/skhd/issues/42
+# MacOS Dots
+
+### Hardware
+
+| Spec | Value |
+|:---: |:---:|
+| Model | M4 Pro |
+| CPU | 14 Cores |
+| GPU | 20 Cores |
+| Neural Engine | 16 Cores |
+| macOS | Sequoia |
+| Screen | 14.2" Nano-texture @3024x1964 |
+| RAM | 48 GB |
+| SSD | 1 TB |
+
+### Screenshots
+
+#### Terminal Workspace
+
+![image](./assets/hs.png)
+
+<hr>
+
+#### Code Workspace
+
+![image](./assets/vsc.png)
+
+<hr>
+
+#### Firefox Workspace
+
+![image](./assets/yt.png)
+
+<hr>
 
 
 
 
-#### Hardware:
-```rs
-    M4 Pro
-    14‑core CPU
-    20‑core GPU
-    16‑core Neural Engine
-    Nano-texture 14.2 inches
-    48GB RAM, 1TB SSD
-```
+
+
+### What for what
+
+- **WM** \
+ [yabai](https://github.com/koekeishiya/yabai)
+ - **Bar** \
+  [sketchybar](https://github.com/FelixKratz/SketchyBar)
+ - **Wallpaper** \
+ [pexels](https://www.pexels.com/search/4k%20wallpaper/)
+-   **Hotkey Daemon** \
+[skhd](https://github.com/koekeishiya/skhd)
+- **Terminal** \
+[Alacritty](https://github.com/alacritty/alacritty)
+- **Shell** \
+[fish](https://fishshell.com/)
+- **Activity Monitor** \
+[htop](https://htop.dev/)
+- **Package Manager** \
+[homebrew](https://brew.sh/)
+
+<hr>
+I made most of these from scratch. Copy at your own risk.
+
+### Moto
+Backup for my configs, can't rice my machine again and again ;)
