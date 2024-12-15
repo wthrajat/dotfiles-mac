@@ -35,7 +35,7 @@ I riced most of these from scratch. Copy at your own risk.
 ## What for what
 
 | WM | [yabai](https://github.com/koekeishiya/yabai) |
-|---|---|
+|:---: |:---:|
 | Bar | [sketchybar](https://github.com/FelixKratz/SketchyBar) |
 | Wallpaper | [pexels](https://www.pexels.com/search/4k%20wallpaper/) |
 | Hotkey Daemon | [skhd](https://github.com/koekeishiya/skhd) |
