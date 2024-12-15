@@ -28,9 +28,11 @@ cmd - q : : "
 
 # Applications shortcut
 # alt - w : open -n /Applications/Firefox.app
-cmd - return : open -n /Applications/Alacritty.app
-cmd - backspace : skhd -k "lalt + backspace "
+## cmd - backspace : skhd -k "lalt + backspace
 
+
+cmd - return : open -n /Applications/Alacritty.app
+# cmd + space - return : flameshot gui
 
 # # fast focus desktop
 alt - tab :     yabai -m space --focus recent
