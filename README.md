@@ -6,19 +6,14 @@
 
 ![image](./assets/hs.png)
 
-<hr>
 
 #### Code Workspace
 
 ![image](./assets/vsc.png)
 
-<hr>
-
 #### Firefox Workspace
 
 ![image](./assets/yt.png)
-
-<hr>
 
 ### Hardware
 
@@ -60,3 +55,4 @@ I made most of these from scratch. Copy at your own risk.
 
 ### Moto
 Backup for my configs, can't rice my machine again and again ;)
+<hr>
