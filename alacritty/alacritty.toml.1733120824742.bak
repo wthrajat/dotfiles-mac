@@ -1,0 +1,49 @@
+import = [
+  "/Users/rajat/.nvm/versions/node/v23.3.0/lib/node_modules/alacritty-themes/themes/Alabaster.dark.toml"
+]
+
+[colors.bright]
+black = "#709080"
+blue = "#94bff3"
+cyan = "#93e0e3"
+green = "#c3bf9f"
+magenta = "#ec93d3"
+red = "#dca3a3"
+white = "#ffffff"
+yellow = "#f0dfaf"
+
+[colors.cursor]
+cursor = "#ffffff"
+text = "#000000"
+
+[colors.normal]
+black = "#1e2320"
+blue = "#506070"
+cyan = "#8cd0d3"
+green = "#60b48a"
+magenta = "#dc8cc3"
+red = "#705050"
+white = "#dcdccc"
+yellow = "#dfaf8f"
+
+[cursor]
+style = "Beam"
+thickness = 0.1
+
+[window]
+decorations = "none"
+dynamic_padding = true
+opacity = 0.5
+blur = true
+option_as_alt = "Both"
+
+  [window.padding]
+  x = 20
+  y = 20
+
+[font]
+size = 16
+
+  [font.normal]
+  family = "MesloLGS Nerd Font Mono"
+  style = "Regular"
