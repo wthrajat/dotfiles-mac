@@ -38,7 +38,7 @@ x = 20
 y = 20
 
 [font]
-size = 16
+size = 20
 
 [font.normal]
 family = "MesloLGS Nerd Font Mono"

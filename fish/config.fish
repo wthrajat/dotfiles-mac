@@ -11,3 +11,19 @@ set PATH /opt/homebrew/Caskroom/flameshot/12.1.0/flameshot.app/Contents/MacOS/ $
 
 # Added by `rbenv init` on Fri Dec  6 23:13:12 IST 2024
 status --is-interactive; and rbenv init - --no-rehash fish | source
+
+# Git aliases
+alias gp='git push origin HEAD'
+alias gfo='git fetch origin'
+alias gc='git checkout -'
+alias gl='git log --oneline --graph --decorate'
+alias gs='git status'
+alias c='clear'
+
+# Apps
+alias codeit='code .;exit'
+alias amboss='cd ~/amboss'
+alias config='cd ~/.config/'
+
+# System
+alias ll='ls -la'
