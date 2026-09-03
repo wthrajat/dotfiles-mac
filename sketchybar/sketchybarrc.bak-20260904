@@ -21,7 +21,7 @@ sketchybar --bar height=32      \
 #                  position=top     \
 #                  padding_left=10  \
 #                  padding_right=10 \
-#                  color=0x15ffffff
+#                  color=0x15ffffff 
 
 sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:16.0"  \
@@ -67,8 +67,8 @@ sketchybar --add bracket spaces '/space\..*/' new_space                \
                                 background.corner_radius=15             \
                                 background.border_width=0              \
                                 background.border_color=$BLUE          \
-                                 blur_radius=0                         \
-                                 background.height=30
+                                blur_radius=0                         \
+                                background.height=30                    
 
 # add space highlighter dot
 sketchybar --add item highlight_space left                      \
@@ -80,67 +80,22 @@ sketchybar --add item highlight_space left                      \
 
 sketchybar --subscribe highlight_space space_change
 
-# now playing (left, right after the workspace cluster)
-sketchybar --add event now_playing_change \
-           --add item now_playing left \
-           --set now_playing script='./scripts/now_playing.sh' \
-                                update_freq=10 \
-                                scroll_texts=on \
-                                icon.padding_left=12 \
-                                icon.padding_right=8 \
-                                label.padding_left=4 \
-                                label.max_chars=25 \
-                                label.padding_right=8 \
-                                label.scroll_duration=500 \
-                                background.drawing=off \
-           --subscribe now_playing now_playing_change
+# overlay numbers above space highlighter dot
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  SPACES+=(space.$sid)
+  sketchybar --add space space_ex.$sid left \
+             --set space_ex.$sid associated_space=$sid \
+                              icon=${SPACE_ICONS[i]} \
+                              icon.highlight_color=0xFFFFFFFF \
+                              icon.align=center \
+                              icon.width=0 \
+                              label.drawing=off \
+                              click_script="yabai -m space --focus $sid" 
+done
 
-# now playing transport buttons (icon only, event driven with no polling;
-# the main item's `sync` tick fans out to them, so they still converge)
-sketchybar --add item now_playing.sep left \
-           --set now_playing.sep script='./scripts/now_playing.sh' \
-                                     label="|" \
-                                     icon.drawing=off \
-                                     background.drawing=off \
-           --subscribe now_playing.sep now_playing_change
-
-sketchybar --add item now_playing.prev left \
-           --set now_playing.prev script='./scripts/now_playing.sh' \
-                                      click_script='./scripts/now_playing.sh' \
-                                      label.drawing=off \
-                                      icon.padding_left=8 \
-                                      icon.padding_right=8 \
-                                      background.drawing=off \
-           --subscribe now_playing.prev now_playing_change mouse.clicked
-
-sketchybar --add item now_playing.toggle left \
-           --set now_playing.toggle script='./scripts/now_playing.sh' \
-                                        click_script='./scripts/now_playing.sh' \
-                                        label.drawing=off \
-                                        icon.padding_left=8 \
-                                        icon.padding_right=8 \
-                                        background.drawing=off \
-           --subscribe now_playing.toggle now_playing_change mouse.clicked
-
-sketchybar --add item now_playing.next left \
-           --set now_playing.next script='./scripts/now_playing.sh' \
-                                      click_script='./scripts/now_playing.sh' \
-                                      label.drawing=off \
-                                      icon.padding_left=8 \
-                                      icon.padding_right=8 \
-                                      background.drawing=off \
-           --subscribe now_playing.next now_playing_change mouse.clicked
-
-# one pill for the track plus its buttons (standard bracket grouping)
-sketchybar --add bracket now_playing_bracket now_playing now_playing.sep now_playing.prev now_playing.toggle now_playing.next \
-           --set now_playing_bracket background.drawing=on \
-                                        background.color=0xEB1e1e2e \
-                                        background.corner_radius=15 \
-                                        background.height=30 \
-                                        background.border_width=0 \
-                                        background.padding_left=4 \
-                                        background.padding_right=4
-
+sketchybar --set space_ex.1 padding_left=-999999
 # TRANSPARENT=0x00000000
 # update defaults
 sketchybar --default                                                \
@@ -155,11 +110,6 @@ sketchybar --default                                                \
                      background.padding_left=20                     \
                      background.border_width=0
 
-
-
-# The daemon is managed by launchd (see
-# ~/Library/LaunchAgents/local.sketchybar-now-playing.plist), so there is
-# deliberately no autostart line here: reloads must never spawn daemons.
 
 # ~~ center items ~~
 
