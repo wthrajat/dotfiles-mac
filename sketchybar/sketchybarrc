@@ -256,8 +256,8 @@ sketchybar --add item date right                                    \
            --set      date icon=􀧞                                   \
                            icon.color=$BLUE                         \
                            label="$(date '+%a %b %d')"              \
-                           script='./scripts/date.sh'               \
-                           update_freq=10
+                            script='./scripts/date.sh'               \
+                            update_freq=60
 
 
 # cpu
@@ -265,6 +265,13 @@ sketchybar --add item cpu right                                    \
            --set      cpu icon.color=$PEACH                         \
                            script='./scripts/cpu.sh'               \
                            update_freq=3
+
+# cpu temp (mean across CPU die banks via mac-temp, no sudo)
+sketchybar --add item temp right                                   \
+           --set      temp icon=                                  \
+                           icon.color=$GREEN                      \
+                           script='./scripts/temps.sh'            \
+                           update_freq=10
 
 
 # memory

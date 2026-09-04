@@ -1,11 +1,12 @@
 # adapted from https://github.com/neutonfoo/dotfiles/blob/main/.config/sketchybar/plugins-laptop/battery.sh
 
-PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
-CHARGING=$(pmset -g batt | grep 'AC Power')
+# Single pmset call (was two); parsed in pure shell, zero extra forks.
+BATT="$(pmset -g batt 2>/dev/null)"
+PERCENTAGE="${BATT%%%*}"
+PERCENTAGE="${PERCENTAGE##*[^0-9]}"
+case "$BATT" in *'AC Power'*) CHARGING=yes;; *) CHARGING=;; esac
 
-if [ $PERCENTAGE = "" ]; then
-    exit 0
-fi
+case "$PERCENTAGE" in ''|*[!0-9]*) exit 0;; esac
 
 case ${PERCENTAGE} in
 [8-9][0-9] | 100)
@@ -25,7 +26,7 @@ case ${PERCENTAGE} in
     ;;
 esac
 
-if [[ $CHARGING != "" ]]; then
+if [ -n "$CHARGING" ]; then
     ICON=""
 fi
 
