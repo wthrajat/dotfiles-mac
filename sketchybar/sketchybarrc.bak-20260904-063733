@@ -1,67 +1,39 @@
-#!/bin/sh
-# Catppuccin Macchiato — frosted glass edition
-# Bar + pills are a-bit-transparent with heavy blur (see BAR_BG / PILL_BG).
-
-# ── palette (opaque) ──
-BASE=0xFF24273a
-MANTLE=0xFF1e2030
-CRUST=0xFF181926
-SURFACE0=0xFF363a4f
-SURFACE1=0xFF494d64
-OVERLAY0=0xFF6e738d
-OVERLAY1=0xFF8087a2
-TEXT=0xFFcad3f5
-SUBTEXT0=0xFFa5adcb
-LAVENDER=0xFFb7bdf8
-BLUE=0xFF8aadf4
-SKY=0xFF91d7e3
-TEAL=0xFF8bd5ca
-GREEN=0xFFa6da95
-YELLOW=0xFFeed49f
-PEACH=0xFFf5a97f
-MAROON=0xFFee99a0
-RED=0xFFed8796
-MAUVE=0xFFc6a0f6
-PINK=0xFFf5bde6
-
-# ── frosted / transparent ──
-# ARGB alpha: B3 ≈ 70% opaque, BF ≈ 75% opaque, 80 ≈ 50%
-BAR_BG=0xB31e2030       # mantle, a bit transparent
-PILL_BG=0xBF24273a      # base, glassy but readable
-PILL_BORDER=0x80494d64  # surface1 @ 50%, soft outline
-HIGHLIGHT=0xFFc6a0f6    # mauve, solid so the active-space dot pops
+BLUE=0xFF1E6E77
+PURPLE=0xFFA753EA
+RED=0xFFBE425E
+GREEN=0xFF7E9853
 TRANSPARENT=0x00000000
+WHITE=0xffffffff
 
-# main bar: fully transparent, no rectangle — only the pills show.
-# (blur lives on the pills themselves, so the bar stays invisible)
-sketchybar --bar height=32        \
-                 margin=0         \
+# main bar & defaults
+sketchybar --bar height=32      \
+                 margin=0        \
                  y_offset=4       \
-                 corner_radius=0  \
-                 border_width=0   \
+                 padding_left=20   \
+                 padding_right=20  \
+                 drawing=on\
                  color=$TRANSPARENT \
-                 blur_radius=0    \
-                 shadow=off       \
-                 sticky=on        \
-                 font_smoothing=on \
-                 padding_left=12  \
-                 padding_right=12 \
-                 drawing=on
+                 blur_radius=30
+
+
+# sketchybar --bar height=32        \
+#                  blur_radius=50   \
+#                  position=top     \
+#                  padding_left=10  \
+#                  padding_right=10 \
+#                  color=0x15ffffff
 
 sketchybar --default updates=when_shown                             \
                      icon.font="Liga SFMono Nerd Font:Normal:16.0"  \
-                     icon.color=$SUBTEXT0                           \
-                     icon.highlight_color=$LAVENDER                 \
+                     icon.color=0xFFFFFFFF                          \
                      label.font="Liga SFMono Nerd Font:Normal:14.0" \
-                     label.color=$TEXT                              \
                      background.color=$TRANSPARENT                  \
                      y_offset=0
 
 # ~~ left items ~~
 
-# space numbers (spares for nonexistent spaces auto-hide, so keep a few
-# extra for the + button to grow into; numbers only, no glyphs)
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13")
+# space numbers
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "􀣺")
 SPACES=()
 
 for i in "${!SPACE_ICONS[@]}"
@@ -71,57 +43,42 @@ do
   sketchybar --add space space.$sid left \
              --set space.$sid associated_space=$sid \
                               icon=${SPACE_ICONS[i]} \
-                              icon.color=$OVERLAY1 \
+                              icon.highlight_color=0x00000000  \
                               icon.align=center \
                               icon.width=30 \
                               label.drawing=off \
-                              background.drawing=off \
-                              background.color=$MAUVE \
-                              background.height=22 \
-                              background.corner_radius=7 \
-                              script='./scripts/space.sh' \
                               click_script="yabai -m space --focus $sid"
 done
 
-# separator + add-space button: a plain + so it never reads as a workspace
-sketchybar --add item space_sep left \
-           --set      space_sep label="|" \
-                                 label.color=$SURFACE1 \
-                                 icon.drawing=off \
-                                 background.drawing=off \
-                                 label.padding_left=2 \
-                                 label.padding_right=2
-
+# create new space button
 sketchybar --add item new_space left                        \
            --set      new_space icon.width=24               \
-                                label.drawing=off          \
+                                label.padding_right=2      \
                                 icon.align=center           \
                                 icon.padding_right=0        \
-                                icon.color=$TEAL            \
-                                icon="+"                    \
-                                background.drawing=off     \
+                                icon=􀣺                     \
                                 click_script='./scripts/new_space.sh'
 
-# consolidate space numbers and add a frosted background
-# (background.padding_* expands the pill outward = inner breathing room)
-sketchybar --add bracket spaces '/space\..*/' space_sep new_space     \
-           --set         spaces background.color=$PILL_BG               \
-                                background.padding_left=12 \
-                                background.padding_right=10 \
-                                background.corner_radius=12             \
-                                background.border_width=1              \
-                                background.border_color=$PILL_BORDER   \
-                                background.height=30                   \
-                                blur_radius=30
+# consolidate space numbers and add a background
+sketchybar --add bracket spaces '/space\..*/' new_space                \
+           --set         spaces background.color=0xEB1e1e2e            \
+                                background.padding_left=0\
+                                background.padding_right=0\
+                                background.corner_radius=15             \
+                                background.border_width=0              \
+                                background.border_color=$BLUE          \
+                                 blur_radius=0                         \
+                                 background.height=30
 
-# breathing room between the workspace pill and the now-playing pill
-# (a fixed-width invisible spacer: background.padding only grows pills,
-# it never pushes neighbors apart)
-sketchybar --add item gap_workspaces_music left \
-           --set      gap_workspaces_music width=12 \
-                                           background.drawing=off \
-                                           icon.drawing=off \
-                                           label.drawing=off
+# add space highlighter dot
+sketchybar --add item highlight_space left                      \
+           --set      highlight_space width=22                  \
+                                      background.color=0xff0e64ef   \
+                                      background.height=22      \
+                                      background.corner_radius=11 \
+                                      script='./scripts/highlight_space.sh'
+
+sketchybar --subscribe highlight_space space_change
 
 # now playing (left, right after the workspace cluster)
 sketchybar --add event now_playing_change \
@@ -129,10 +86,8 @@ sketchybar --add event now_playing_change \
            --set now_playing script='./scripts/now_playing.sh' \
                                 update_freq=10 \
                                 scroll_texts=on \
-                                icon.color=$PINK \
                                 icon.padding_left=12 \
                                 icon.padding_right=8 \
-                                label.color=$TEXT \
                                 label.padding_left=4 \
                                 label.max_chars=25 \
                                 label.padding_right=8 \
@@ -145,7 +100,6 @@ sketchybar --add event now_playing_change \
 sketchybar --add item now_playing.sep left \
            --set now_playing.sep script='./scripts/now_playing.sh' \
                                      label="|" \
-                                     label.color=$OVERLAY0 \
                                      icon.drawing=off \
                                      background.drawing=off \
            --subscribe now_playing.sep now_playing_change
@@ -154,7 +108,6 @@ sketchybar --add item now_playing.prev left \
            --set now_playing.prev script='./scripts/now_playing.sh' \
                                       click_script='./scripts/now_playing.sh' \
                                       label.drawing=off \
-                                      icon.color=$SUBTEXT0 \
                                       icon.padding_left=8 \
                                       icon.padding_right=8 \
                                       background.drawing=off \
@@ -164,7 +117,6 @@ sketchybar --add item now_playing.toggle left \
            --set now_playing.toggle script='./scripts/now_playing.sh' \
                                         click_script='./scripts/now_playing.sh' \
                                         label.drawing=off \
-                                        icon.color=$TEXT \
                                         icon.padding_left=8 \
                                         icon.padding_right=8 \
                                         background.drawing=off \
@@ -174,40 +126,36 @@ sketchybar --add item now_playing.next left \
            --set now_playing.next script='./scripts/now_playing.sh' \
                                       click_script='./scripts/now_playing.sh' \
                                       label.drawing=off \
-                                      icon.color=$SUBTEXT0 \
                                       icon.padding_left=8 \
                                       icon.padding_right=8 \
                                       background.drawing=off \
            --subscribe now_playing.next now_playing_change mouse.clicked
 
-# one frosted pill for the track plus its buttons (standard bracket grouping)
+# one pill for the track plus its buttons (standard bracket grouping)
 sketchybar --add bracket now_playing_bracket now_playing now_playing.sep now_playing.prev now_playing.toggle now_playing.next \
            --set now_playing_bracket background.drawing=on \
-                                        background.color=$PILL_BG \
-                                        background.corner_radius=12 \
+                                        background.color=0xEB1e1e2e \
+                                        background.corner_radius=15 \
                                         background.height=30 \
-                                        background.border_width=1 \
-                                        background.border_color=$PILL_BORDER \
-                                       background.padding_left=4 \
-                                       background.padding_right=4 \
-                                       blur_radius=30
+                                        background.border_width=0 \
+                                        background.padding_left=4 \
+                                        background.padding_right=4
 
-# update defaults for right-side frosted pills
+# TRANSPARENT=0x00000000
+# update defaults
 sketchybar --default                                                \
-                     background.color=$PILL_BG                     \
-                     background.corner_radius=12                   \
-                     background.height=30                          \
-                     background.border_width=1                     \
-                     background.border_color=$PILL_BORDER          \
-                     blur_radius=30                                \
-                     icon.color=$TEXT                              \
-                     label.color=$TEXT                             \
-                     icon.padding_left=12                          \
-                     icon.padding_right=5                          \
-                     label.padding_left=5                          \
-                     label.padding_right=15                        \
-                     background.padding_left=6                     \
-                     background.padding_right=6
+                     background.color=0xEB1e1e2e                    \
+                     blur_radius=5                                  \
+                     background.corner_radius=15                    \
+                     background.height=30                           \
+                     icon.padding_left=12                           \
+                     icon.padding_right=5                           \
+                     label.padding_left=5                           \
+                     label.padding_right=15                         \
+                     background.padding_left=20                     \
+                     background.border_width=0
+
+
 
 # The daemon is managed by launchd (see
 # ~/Library/LaunchAgents/local.sketchybar-now-playing.plist), so there is
@@ -224,7 +172,7 @@ sketchybar --default                                                \
 #                             icon.padding_left=0                     \
 #                             icon.padding_right=0                    \
 #                             script='./scripts/title.sh'             \
-#                             background.border_color=$PILL_BORDER    \
+#                             background.border_color=0x77ADADAD      \
 #                             label.max_chars=54                      # \
 #                             # scroll_texts=on                         \
 #                             # label.scroll_duration=200
@@ -238,6 +186,7 @@ sketchybar --default                                                \
 sketchybar --add item battery right                                 \
            --set      battery icon=                                \
                               icon.color=$GREEN                     \
+                              background.border_color=$GREEN        \
                               label="--%"                           \
                               script='./scripts/battery.sh'         \
                               update_freq=60
@@ -246,7 +195,8 @@ sketchybar --add item battery right                                 \
 # time
 sketchybar --add item time right                                    \
            --set      time icon=􀐬                                   \
-                           icon.color=$LAVENDER                     \
+                           icon.color=0xff91d9d1                      \
+                           background.border_color=$PURPLE          \
                            label="$(date '+%I:%M %p')"              \
                            script='./scripts/time.sh'               \
                            update_freq=60
@@ -254,29 +204,45 @@ sketchybar --add item time right                                    \
 # date
 sketchybar --add item date right                                    \
            --set      date icon=􀧞                                   \
-                           icon.color=$BLUE                         \
+                           icon.color=0xff91d9d1                          \
+                           background.border_color=$RED             \
                            label="$(date '+%a %b %d')"              \
                            script='./scripts/date.sh'               \
                            update_freq=10
 
 
-# cpu
+# date
 sketchybar --add item cpu right                                    \
-           --set      cpu icon.color=$PEACH                         \
+           --set      cpu icon.color=0xff91d9d1                         \
+                           background.border_color=$RED             \
                            script='./scripts/cpu.sh'               \
-                           update_freq=3
+                           update_freq=3\
 
 
 # memory
 sketchybar --add item memory right                                    \
-           --set      memory icon.color=$YELLOW                       \
+           --set      memory icon.color=0xff91d9d1                         \
+                           background.border_color=$RED             \
                            script='./scripts/memory.sh'           \
-                           update_freq=5
+                           update_freq=5 \
+# 	icon.color="$RED" \
+# 	icon.padding_left=10 \
+# 	label.color="$RED" \
+# 	label.padding_right=10 \
+# 	background.height=26 \
+# 	background.corner_radius="$CORNER_RADIUS" \
+# 	background.padding_right=5 \
+# 	background.border_width="$BORDER_WIDTH" \
+# 	background.border_color="$RED" \
+# 	background.color="$RED" \
+# 	background.drawing=on \
+# 	script="./scripts/cpu.sh"
 
 # # weather
 # sketchybar --add item weather right                                 \
 #            --set      weather icon=A                                \
-#                               icon.color=$SKY                      \
+#                               icon.color=$BLUE                      \
+#                               background.border_color=$BLUE         \
 #                               label="--°F"                          \
 #                               script='./scripts/weather.sh'         \
 #                               update_freq=60
