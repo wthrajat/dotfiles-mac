@@ -40,9 +40,12 @@ run_bin() {
 }
 
 set_label() {
-  # $1=label $2=icon $3=playing ("true" scrolls, anything else stays put)
+  # $1=label $2=icon $3=playing ("true" scrolls, anything else stays put).
+  # Sticky last track: empty label means idle, never hide. Keep the previous
+  # label/icon, only stop motion. No `drawing` change preserves
+  # hidden-until-first-play.
   if [ -z "$1" ]; then
-    sketchybar --set "$NAME" drawing=off
+    sketchybar --set "$NAME" scroll_texts=off
   elif [ "$3" = "true" ]; then
     sketchybar --set "$NAME" label="$1" icon="$2" scroll_texts=on drawing=on
   else
@@ -58,17 +61,20 @@ ICON_PAUSE=""
 ICON_NEXT=""
 
 set_control() {
-  # $1=icon. Controls hide with the track: no player, no buttons.
+  # $1=icon. Sticky: idle (empty $LABEL) refreshes the glyph to the paused
+  # set but leaves `drawing` untouched, so a shown bar stays shown frozen
+  # and a never-shown bar stays hidden.
   if [ -z "${LABEL:-}" ]; then
-    sketchybar --set "$NAME" drawing=off
+    sketchybar --set "$NAME" icon="$1"
   else
     sketchybar --set "$NAME" icon="$1" drawing=on
   fi
 }
 
 set_sep() {
+  # Sticky: idle leaves the separator exactly as-is (no `drawing` change).
   if [ -z "${LABEL:-}" ]; then
-    sketchybar --set "$NAME" drawing=off
+    :
   else
     sketchybar --set "$NAME" label="|" drawing=on
   fi
@@ -92,7 +98,9 @@ handle_event() {
       set_control "${PREV_ICON:-$ICON_PREV}"
       ;;
     *.toggle)
-      set_control "$(toggle_glyph)"
+      # $TOGGLE_ICON first avoids a subshell fork in the common case (the
+      # daemon always sends it); `toggle_glyph` covers legacy payloads.
+      set_control "${TOGGLE_ICON:-$(toggle_glyph)}"
       ;;
     *.next)
       set_control "${NEXT_ICON:-$ICON_NEXT}"
@@ -108,7 +116,9 @@ handle_event() {
 
 handle_click() {
   # Control siblings always fire their own action; the main item keeps
-  # left toggle / right skip.
+  # left toggle / right skip. No optimistic scroll flip: `scroll_texts`
+  # strictly follows the daemon's PLAYING ground truth via the change event
+  # and the `sync` tick, so a click never starts motion on its own.
   if [ -z "$BIN" ]; then
     return
   fi
@@ -117,9 +127,7 @@ handle_click() {
       run_bin prev >/dev/null 2>&1
       ;;
     *.toggle)
-      if run_bin toggle >/dev/null 2>&1; then
-        flip_scroll "$NAME"
-      fi
+      run_bin toggle >/dev/null 2>&1
       ;;
     *.next)
       run_bin next >/dev/null 2>&1
@@ -127,25 +135,11 @@ handle_click() {
     *)
       if [ "${BUTTON:-left}" = "right" ]; then
         run_bin next >/dev/null 2>&1
-      elif run_bin toggle >/dev/null 2>&1; then
-        flip_scroll "$NAME"
+      else
+        run_bin toggle >/dev/null 2>&1
       fi
       ;;
   esac
-}
-
-flip_scroll() {
-  # $1=item. Optimistic scroll flip for toggle clicks: the system event
-  # confirming the new state can lag seconds behind (browsers especially),
-  # while the user's intent is known right now. The daemon's next event
-  # and the `sync` tick both carry ground truth, so a wrong guess (e.g.
-  # the player ignored the command) self corrects within seconds.
-  # The toggle glyph itself is left to the event: only motion disturbs.
-  if sketchybar --query "$1" 2>/dev/null | grep -q '"scroll_texts": *"on"'; then
-    sketchybar --set "$1" scroll_texts=off
-  else
-    sketchybar --set "$1" scroll_texts=on
-  fi
 }
 
 case "$SENDER" in
@@ -154,10 +148,18 @@ case "$SENDER" in
     # so no output parsing here.
     handle_click
     ;;
-  routine|forced|"")
-    # Fallback and post reload convergence (empty $SENDER is the initial
-    # run): pushes label, icon and visibility in one call, so the shell
-    # parses no output.
+  routine)
+    # Periodic tick only: skip the heavy `sync` (binary + perl adapter +
+    # bar update) while the event daemon is alive and pushing changes.
+    # Falls back to polling the moment the daemon is gone.
+    if [ -n "$BIN" ] && ! pgrep -f "[s]ketchybar-now-playing daemon" >/dev/null 2>&1; then
+      run_bin sync "$NAME" >/dev/null 2>&1
+    fi
+    ;;
+  forced|"")
+    # Post reload convergence (empty $SENDER is the initial run): always
+    # pushes label, icon and scroll state in one call, freezing on idle
+    # instead of hiding, so the shell parses no output.
     # Generic over $NAME: `sync` already knows the control suffixes.
     if [ -n "$BIN" ]; then
       run_bin sync "$NAME" >/dev/null 2>&1

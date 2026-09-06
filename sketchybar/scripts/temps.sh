@@ -43,11 +43,9 @@ LABEL="${INT}°C"
 if [ "$INT" -ge 85 ]; then
   COLOR="0xFFed8796"
 elif [ "$INT" -ge 75 ]; then
-  COLOR="0xFFf5a97f"
-elif [ "$INT" -ge 60 ]; then
   COLOR="0xFFeed49f"
 else
-  COLOR="0xFFa6da95"
+  COLOR="0xFF91d7e3"
 fi
 
 sketchybar --set "${NAME:-temp}" label="$LABEL" icon.color="$COLOR"

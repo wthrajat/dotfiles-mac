@@ -27,9 +27,15 @@ case ${PERCENTAGE} in
 esac
 
 if [ -n "$CHARGING" ]; then
-    ICON=""
+    ICON=""
+    COLOR="0xFFeed49f"
+elif [ "$PERCENTAGE" -ge 30 ]; then
+    COLOR="0xFF91d7e3"
+else
+    COLOR="0xFFed8796"
 fi
 
 sketchybar --set battery \
     icon=$ICON \
+    icon.color="$COLOR" \
     label="${PERCENTAGE}%"

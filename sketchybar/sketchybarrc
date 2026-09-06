@@ -24,12 +24,17 @@ RED=0xFFed8796
 MAUVE=0xFFc6a0f6
 PINK=0xFFf5bde6
 
+# ── theme: neutrals + sky + sun-gold (matches wallpaper) ──
+# All status icons use SKY (tonal with the blue sky); warm YELLOW is reserved
+# for active/playing/charging states; RED is alerts-only (battery low,
+# temp critical). Labels stay neutral TEXT.
+
 # ── frosted / transparent ──
 # ARGB alpha: B3 ≈ 70% opaque, BF ≈ 75% opaque, 80 ≈ 50%
 BAR_BG=0xB31e2030       # mantle, a bit transparent
 PILL_BG=0xBF24273a      # base, glassy but readable
 PILL_BORDER=0x80494d64  # surface1 @ 50%, soft outline
-HIGHLIGHT=0xFFc6a0f6    # mauve, solid so the active-space dot pops
+HIGHLIGHT=0xFFeed49f    # sun-gold, solid so the active space pops
 TRANSPARENT=0x00000000
 
 # main bar: fully transparent, no rectangle — only the pills show.
@@ -58,6 +63,29 @@ sketchybar --default updates=when_shown                             \
                      y_offset=0
 
 # ~~ left items ~~
+
+# apple logo leading the workspace pill (inspiration SS)
+# click opens Activity Monitor
+sketchybar --add item apple left \
+           --set apple icon="" \
+                       icon.font="Liga SFMono Nerd Font:Normal:17.0" \
+                       icon.color=$TEXT \
+                       icon.align=center \
+                       icon.width=30 \
+                       icon.padding_left=4 \
+                       icon.padding_right=2 \
+                       icon.y_offset=1 \
+                       label.drawing=off \
+                       background.drawing=off \
+                       click_script="open -a 'Activity Monitor'"
+
+sketchybar --add item apple_sep left \
+           --set apple_sep icon.drawing=off \
+                               background.drawing=off \
+                               label="|" \
+                               label.color=$SURFACE1 \
+                               label.padding_left=2 \
+                               label.padding_right=8
 
 # space numbers (spares for nonexistent spaces auto-hide, so keep a few
 # extra for the + button to grow into; numbers only, no glyphs)
@@ -97,16 +125,16 @@ sketchybar --add item new_space left                        \
                                 label.drawing=off          \
                                 icon.align=center           \
                                 icon.padding_right=0        \
-                                icon.color=$TEAL            \
-                                icon="+"                    \
-                                background.drawing=off     \
-                                click_script='./scripts/new_space.sh'
+                                 icon.color=$SUBTEXT0 \
+                                 icon="+"                    \
+                                 background.drawing=off     \
+                                 click_script='./scripts/new_space.sh'
 
 # consolidate space numbers and add a frosted background
 # (background.padding_* expands the pill outward = inner breathing room)
-sketchybar --add bracket spaces '/space\..*/' space_sep new_space     \
+sketchybar --add bracket spaces apple apple_sep '/space\..*/' space_sep new_space     \
            --set         spaces background.color=$PILL_BG               \
-                                background.padding_left=12 \
+                                background.padding_left=10 \
                                 background.padding_right=10 \
                                 background.corner_radius=12             \
                                 background.border_width=1              \
@@ -128,8 +156,11 @@ sketchybar --add event now_playing_change \
            --add item now_playing left \
            --set now_playing script='./scripts/now_playing.sh' \
                                 update_freq=10 \
-                                scroll_texts=on \
-                                icon.color=$PINK \
+                                scroll_texts=off \
+                                drawing=on \
+                                label="Play Something" \
+                                 icon="$(printf '\357\200\201')" \
+                                 icon.color=$YELLOW \
                                 icon.padding_left=12 \
                                 icon.padding_right=8 \
                                 label.color=$TEXT \
@@ -144,7 +175,7 @@ sketchybar --add event now_playing_change \
 # the main item's `sync` tick fans out to them, so they still converge)
 sketchybar --add item now_playing.sep left \
            --set now_playing.sep script='./scripts/now_playing.sh' \
-                                     label="|" \
+                                      label="|" \
                                      label.color=$OVERLAY0 \
                                      icon.drawing=off \
                                      background.drawing=off \
@@ -236,8 +267,8 @@ sketchybar --default                                                \
 
 # battery
 sketchybar --add item battery right                                 \
-           --set      battery icon=                                \
-                              icon.color=$GREEN                     \
+           --set      battery icon=                              \
+                               icon.color=$SKY                     \
                               label="--%"                           \
                               script='./scripts/battery.sh'         \
                               update_freq=60
@@ -246,7 +277,7 @@ sketchybar --add item battery right                                 \
 # time
 sketchybar --add item time right                                    \
            --set      time icon=􀐬                                   \
-                           icon.color=$LAVENDER                     \
+                           icon.color=$SKY                     \
                            label="$(date '+%I:%M %p')"              \
                            script='./scripts/time.sh'               \
                            update_freq=60
@@ -254,7 +285,7 @@ sketchybar --add item time right                                    \
 # date
 sketchybar --add item date right                                    \
            --set      date icon=􀧞                                   \
-                           icon.color=$BLUE                         \
+                           icon.color=$SKY                         \
                            label="$(date '+%a %b %d')"              \
                             script='./scripts/date.sh'               \
                             update_freq=60
@@ -262,23 +293,26 @@ sketchybar --add item date right                                    \
 
 # cpu
 sketchybar --add item cpu right                                    \
-           --set      cpu icon.color=$PEACH                         \
+           --set      cpu icon.color=$SKY                         \
                            script='./scripts/cpu.sh'               \
-                           update_freq=3
-
-# cpu temp (mean across CPU die banks via mac-temp, no sudo)
-sketchybar --add item temp right                                   \
-           --set      temp icon=                                  \
-                           icon.color=$GREEN                      \
-                           script='./scripts/temps.sh'            \
                            update_freq=10
 
 
 # memory
 sketchybar --add item memory right                                    \
-           --set      memory icon.color=$YELLOW                       \
+           --set      memory icon.color=$SKY                       \
                            script='./scripts/memory.sh'           \
                            update_freq=5
+
+
+
+# cpu temp (mean across CPU die banks via mac-temp, no sudo)
+sketchybar --add item temp right                                   \
+           --set      temp icon=󰔏                                  \
+                            icon.color=$SKY                      \
+                           script='./scripts/temps.sh'            \
+                           update_freq=10
+
 
 # # weather
 # sketchybar --add item weather right                                 \
