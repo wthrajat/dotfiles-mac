@@ -9,6 +9,9 @@ I riced most of these from scratch. Copy at your own risk.
 
 ![image](./assets/ss_zed.png)
 
+#### Live
+![image](./assets/2026-09-06_10-43-26.gif)
+
 ## Hardware
 
 | Model | M4 Pro |
