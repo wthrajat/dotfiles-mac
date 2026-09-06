@@ -165,8 +165,8 @@ sketchybar --add event now_playing_change \
                                 icon.padding_right=8 \
                                 label.color=$TEXT \
                                 label.padding_left=4 \
-                                label.max_chars=25 \
-                                label.padding_right=8 \
+                                 label.max_chars=25 \
+                                 label.padding_right=14 \
                                 label.scroll_duration=500 \
                                 background.drawing=off \
            --subscribe now_playing now_playing_change
