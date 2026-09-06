@@ -3,18 +3,11 @@ I riced most of these from scratch. Copy at your own risk.
 
 ## Screenshots
 
-#### Terminal Workspace
-
-![image](./assets/hs.png)
-
+![image](./assets/ss2.png)
 
 #### Code Workspace
 
-![image](./assets/vsc.png)
-
-#### Firefox Workspace
-
-![image](./assets/yt.png)
+![image](./assets/ss_zed.png)
 
 ## Hardware
 
@@ -36,6 +29,7 @@ I riced most of these from scratch. Copy at your own risk.
 | Window Manager | [yabai](https://github.com/koekeishiya/yabai) |
 |:---: |:---:|
 | Bar | [sketchybar](https://github.com/FelixKratz/SketchyBar) |
+| Now Playing Bar | [sketchybar-now-playing](https://github.com/wthrajat/sketchybar-now-playing) |
 | Wallpaper | [pexels](https://www.pexels.com/search/4k%20wallpaper/) |
 | Hotkey Daemon | [skhd](https://github.com/koekeishiya/skhd) |
 | Terminal | [Alacritty](https://github.com/alacritty/alacritty) |
