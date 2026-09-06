@@ -3,6 +3,9 @@ I riced most of these from scratch. Copy at your own risk.
 
 ## Screenshots
 
+#### Home
+![image](./assets/home.png)
+
 ![image](./assets/ss2.png)
 
 #### Code Workspace
