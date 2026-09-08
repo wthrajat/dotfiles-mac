@@ -1,0 +1,1 @@
+-- LazyVim and Sidekick provide the main keymaps. Run `:WhichKey` to explore them.

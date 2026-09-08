@@ -1,0 +1,1 @@
+-- LazyVim reloads files changed by external agents when focus returns to Neovim.
