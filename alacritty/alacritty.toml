@@ -1,50 +1,57 @@
-[colors.bright]
-black = "#709080"
-blue = "#94bff3"
-cyan = "#93e0e3"
-green = "#c3bf9f"
-magenta = "#ec93d3"
-red = "#dca3a3"
-white = "#ffffff"
-yellow = "#f0dfaf"
-
-[colors.cursor]
-cursor = "#ffffff"
-text = "#000000"
+[colors.primary]
+background = "#222436"
+foreground = "#c8d3f5"
 
 [colors.normal]
-black = "#1e2320"
-blue = "#506070"
-cyan = "#8cd0d3"
-green = "#60b48a"
-magenta = "#dc8cc3"
-red = "#705050"
-white = "#dcdccc"
-yellow = "#dfaf8f"
+black = "#1b1d2b"
+red = "#ff757f"
+green = "#c3e88d"
+yellow = "#ffc777"
+blue = "#82aaff"
+magenta = "#c099ff"
+cyan = "#86e1fc"
+white = "#828bb8"
+
+[colors.bright]
+black = "#444a73"
+red = "#ff8d94"
+green = "#c7fb6d"
+yellow = "#ffd8ab"
+blue = "#9ab8ff"
+magenta = "#caabff"
+cyan = "#b2ebff"
+white = "#c8d3f5"
+
+[colors.cursor]
+cursor = "#c8d3f5"
+text = "#222436"
 
 [cursor]
-style = "Beam"
-thickness = 0.1
-
-[window]
-decorations = "none"
-dynamic_padding = true
-opacity = 0.6
-blur = true
-option_as_alt = "Both"
-
-[window.padding]
-x = 20
-y = 20
+style = { shape = "Beam", blinking = "On" }
+thickness = 0.15
+unfocused_hollow = true
 
 [font]
-size = 20
+size = 18
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
 
-[font.normal]
-family = "MesloLGS Nerd Font Mono"
-style = "Regular"
+[scrolling]
+history = 100000
+multiplier = 3
 
-[terminal]
+[selection]
+save_to_clipboard = true
+
+[window]
+blur = true
+decorations = "Buttonless"
+dynamic_padding = true
+opacity = 0.8
+option_as_alt = "Both"
+padding = { x = 14, y = 12 }
 
 [terminal.shell]
 program = "/opt/homebrew/bin/fish"
