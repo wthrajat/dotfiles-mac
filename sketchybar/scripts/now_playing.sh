@@ -91,7 +91,7 @@ PLACEHOLDER="Play Something"
 # is harmless, a stray launch is not).
 is_idle() {
   # $1=base item (callers resolve control siblings to the main item).
-  current="$(sketchybar --query "$1" 2>/dev/null | /usr/bin/python3 -c 'import json,sys; print(json.load(sys.stdin)["label"]["value"])' 2>/dev/null)" || return 0
+  current="$(sketchybar --query "$1" 2>/dev/null | /usr/bin/jq -er '.label.value' 2>/dev/null)" || return 0
   [ -z "$current" ] || [ "$current" = "$PLACEHOLDER" ]
 }
 

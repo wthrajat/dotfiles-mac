@@ -3,16 +3,16 @@ alt - f : yabai -m window --toggle zoom-fullscreen
 
 
 # move window to space #
-alt + shift - 1 : yabai -m window --space  1;
-alt + shift - 2 : yabai -m window --space  2;
-alt + shift - 3 : yabai -m window --space  3;
-alt + shift - 4 : yabai -m window --space  4;
-alt + shift - 5 : yabai -m window --space  5;
-alt + shift - 6 : yabai -m window --space  6;
-alt + shift - 7 : yabai -m window --space  7;
-alt + shift - 8 : yabai -m window --space  8;
-alt + shift - 9 : yabai -m window --space  9;
-alt + shift - 0 : yabai -m window --space 10;
+alt + shift - 1 : yabai -m window --space  1
+alt + shift - 2 : yabai -m window --space  2
+alt + shift - 3 : yabai -m window --space  3
+alt + shift - 4 : yabai -m window --space  4
+alt + shift - 5 : yabai -m window --space  5
+alt + shift - 6 : yabai -m window --space  6
+alt + shift - 7 : yabai -m window --space  7
+alt + shift - 8 : yabai -m window --space  8
+alt + shift - 9 : yabai -m window --space  9
+alt + shift - 0 : yabai -m window --space 10
 
 # # stop/start/restart yabai
 # ctrl + alt - q : yabai --stop-service
@@ -73,11 +73,8 @@ cmd - tab :  yabai -m space --focus next || yabai -m space --focus first
 # alt - delete : yabai -m space --destroy "$(yabai -m query --spaces --display | jq -r 'map(select(."has-focus" == true))[0].index')"
 
 
-# create desktop and follow focus - uses jq for parsing json
-ctrl + alt - n : yabai -m space --create && \
-                index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
-                yabai -m space --focus "${index}" && \
-                sketchybar -m --trigger space_change
+# create desktop and follow focus
+ctrl + alt - n : ~/.config/sketchybar/scripts/new_space.sh
 
 
 
@@ -93,4 +90,4 @@ alt - 9 : yabai -m space --focus 9
 alt - 0 : yabai -m space --focus 10
 
 # destroy desktop
-ctrl + alt - k : yabai -m space --destroy && yabai -m window --focus recent && sketchybar -m --trigger space_change
+ctrl + alt - k : yabai -m space --destroy && yabai -m window --focus recent && sketchybar --trigger space_change

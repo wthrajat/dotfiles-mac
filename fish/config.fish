@@ -1,16 +1,15 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
-
 set -x LANG en_US.UTF-8
 set -x KAFKAJS_NO_PARTITIONER_WARNING 1
 
-# set PATH /Users/rajat/.nvm/versions/node/v23.3.0/bin $PATH
-set PATH /Users/rajat/.local/share/nvm/v24.13.0/bin/ $PATH
-set PATH /opt/homebrew/Caskroom/flameshot/12.1.0/flameshot.app/Contents/MacOS/ $PATH
+# Node comes from nvm.fish (nvm_default_version). fish_add_path skips duplicates.
+fish_add_path -g /Applications/flameshot.app/Contents/MacOS
 
-# Added by `rbenv init` on Fri Dec  6 23:13:12 IST 2024
-status --is-interactive; and rbenv init - --no-rehash fish | source
+# Static equivalent of `rbenv init - --no-rehash fish` (saves ~29ms per shell);
+# the rbenv wrapper function is autoloaded from functions/rbenv.fish.
+if status is-interactive
+    fish_add_path -gm ~/.rbenv/shims
+    set -gx RBENV_SHELL fish
+end
 
 # Git aliases
 alias gp='git push origin HEAD'
