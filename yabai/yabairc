@@ -1,4 +1,4 @@
-#!bin/sh
+#!/usr/bin/env sh
 #              _           _
 #             | |         (_)
 #  _   _  __ _| |__   __ _ _ _ __ ___
@@ -30,9 +30,6 @@ yabai -m config active_window_opacity 1.0
 yabai -m config normal_window_opacity 0.99
 
 
-# center mouse on window with focus
-# yabai -m config mouse_follows_focus on
-
 # modifier for clicking and dragging with mouse
 yabai -m config mouse_modifier alt
 # set modifier + left-click drag to move window
@@ -44,7 +41,6 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
 
 
-yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          autofocus
 
 
