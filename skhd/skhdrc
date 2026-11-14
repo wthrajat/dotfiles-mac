@@ -56,6 +56,14 @@ alt + shift - down : yabai -m window --warp south
 
 ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap east
 
+## SPLIT (i3-style)
+
+# flip the focused split between side by side and stacked
+alt - e : yabai -m window --toggle split
+# open the next window below / right of the focused one (press again to cancel)
+alt - v : yabai -m window --insert south
+alt - h : yabai -m window --insert east
+
 
 ## RESIZE
 
