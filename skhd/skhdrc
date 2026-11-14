@@ -49,10 +49,11 @@ ctrl - down :   yabai -m window --focus south
 
 ## MOVE
 
-alt + shift - left : yabai -m window --warp west
-alt + shift - right : yabai -m window --warp east
-alt + shift - up : yabai -m window --warp north
-alt + shift - down : yabai -m window --warp south
+# i3-style: flips side by side <-> stacked when nothing is in that direction
+alt + shift - left  : ~/.config/yabai/move_window.sh west
+alt + shift - right : ~/.config/yabai/move_window.sh east
+alt + shift - up    : ~/.config/yabai/move_window.sh north
+alt + shift - down  : ~/.config/yabai/move_window.sh south
 
 ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap east
 
