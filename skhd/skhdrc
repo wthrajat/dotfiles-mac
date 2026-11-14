@@ -87,16 +87,16 @@ ctrl + alt - n : ~/.config/sketchybar/scripts/new_space.sh
 
 
 
-alt - 1 : yabai -m space --focus 1
-alt - 2 : yabai -m space --focus 2
-alt - 3 : yabai -m space --focus 3
-alt - 4 : yabai -m space --focus 4
-alt - 5 : yabai -m space --focus 5
-alt - 6 : yabai -m space --focus 6
-alt - 7 : yabai -m space --focus 7
-alt - 8 : yabai -m space --focus 8
-alt - 9 : yabai -m space --focus 9
-alt - 0 : yabai -m space --focus 10
+alt - 1 : ~/.config/yabai/focus_space.sh 1
+alt - 2 : ~/.config/yabai/focus_space.sh 2
+alt - 3 : ~/.config/yabai/focus_space.sh 3
+alt - 4 : ~/.config/yabai/focus_space.sh 4
+alt - 5 : ~/.config/yabai/focus_space.sh 5
+alt - 6 : ~/.config/yabai/focus_space.sh 6
+alt - 7 : ~/.config/yabai/focus_space.sh 7
+alt - 8 : ~/.config/yabai/focus_space.sh 8
+alt - 9 : ~/.config/yabai/focus_space.sh 9
+alt - 0 : ~/.config/yabai/focus_space.sh 10
 
 # destroy desktop
-ctrl + alt - k : yabai -m space --destroy && yabai -m window --focus recent && sketchybar --trigger space_change
+ctrl + alt - k : yabai -m space --destroy && { yabai -m window --focus recent; sketchybar --trigger space_change; }

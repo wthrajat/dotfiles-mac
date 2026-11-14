@@ -244,25 +244,6 @@ sketchybar --default                                                \
 # ~/Library/LaunchAgents/local.sketchybar-now-playing.plist), so there is
 # deliberately no autostart line here: reloads must never spawn daemons.
 
-# ~~ center items ~~
-
-# # app title
-# sketchybar --add event title_change
-# sketchybar --add item title center                                  \
-#            --set      title label.padding_left=12                   \
-#                             label="Title"                           \
-#                             background.padding_left=0               \
-#                             icon.padding_left=0                     \
-#                             icon.padding_right=0                    \
-#                             script='./scripts/title.sh'             \
-#                             background.border_color=$PILL_BORDER    \
-#                             label.max_chars=54                      # \
-#                             # scroll_texts=on                         \
-#                             # label.scroll_duration=200
-
-# sketchybar --subscribe title title_change
-
-
 # ~~ right items ~~
 
 # battery
@@ -271,7 +252,8 @@ sketchybar --add item battery right                                 \
                                icon.color=$SKY                     \
                               label="--%"                           \
                               script='./scripts/battery.sh'         \
-                              update_freq=60
+                              update_freq=60                        \
+           --subscribe battery power_source_change system_woke
 
 
 # time
@@ -280,15 +262,17 @@ sketchybar --add item time right                                    \
                            icon.color=$SKY                     \
                            label="$(date '+%I:%M %p')"              \
                            script='./scripts/time.sh'               \
-                           update_freq=60
+                           update_freq=10                           \
+           --subscribe time system_woke
 
 # date
 sketchybar --add item date right                                    \
            --set      date icon=􀧞                                   \
                            icon.color=$SKY                         \
-                           label="$(date '+%a %b %d')"              \
+                           label="$(date '+%d %b %a')"              \
                             script='./scripts/date.sh'               \
-                            update_freq=60
+                            update_freq=60                           \
+           --subscribe date system_woke
 
 
 # cpu
@@ -312,16 +296,6 @@ sketchybar --add item temp right                                   \
                             icon.color=$SKY                      \
                            script='./scripts/temps.sh'            \
                            update_freq=30
-
-
-# # weather
-# sketchybar --add item weather right                                 \
-#            --set      weather icon=A                                \
-#                               icon.color=$SKY                      \
-#                               label="--°F"                          \
-#                               script='./scripts/weather.sh'         \
-#                               update_freq=60
-
 
 
 # finish config
