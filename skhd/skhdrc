@@ -67,14 +67,13 @@ ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap e
 # cmd - tab : : "
 
 
-# cycle forwards on the focused display
-# id="$()"
-cmd - tab :  yabai -m space --focus "$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')"
+# cycle forwards through spaces, wrapping to the first
+cmd - tab :  yabai -m space --focus next || yabai -m space --focus first
 
 # alt - delete : yabai -m space --destroy "$(yabai -m query --spaces --display | jq -r 'map(select(."has-focus" == true))[0].index')"
 
 
-# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+# create desktop and follow focus - uses jq for parsing json
 ctrl + alt - n : yabai -m space --create && \
                 index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
                 yabai -m space --focus "${index}" && \

@@ -22,12 +22,8 @@ yabai -m config left_padding   20
 yabai -m config right_padding  20
 yabai -m config window_gap     20
 
-# window opacity (default: off)
-# # example: render all unfocused windows with 90% opacity
 yabai -m config window_opacity off
 yabai -m config window_shadow  on
-yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.99
 
 
 # modifier for clicking and dragging with mouse
@@ -39,12 +35,16 @@ yabai -m config mouse_action2 resize
 
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Firefox$" title="^Picture-in-Picture$" manage=off
+yabai -m rule --add app="^Finder$" title="^(Copy|Move|Connect to Server|.* Info)$" manage=off
 
 
 yabai -m config focus_follows_mouse          autofocus
 
 
 # when window is dropped in center of another window, swap them (on edges it will split it)
+yabai -m config mouse_drop_action swap
 
 yabai -m config external_bar all:30:0
 
