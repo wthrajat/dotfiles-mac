@@ -7,3 +7,6 @@ stripe
 autocommit-rs
 manicode
 zed
+# herdr: track the config only; sessions, logs and sockets are runtime state
+herdr/*
+!herdr/config.toml
