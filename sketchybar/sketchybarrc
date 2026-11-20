@@ -298,6 +298,100 @@ sketchybar --add item temp right                                   \
                            update_freq=30
 
 
+# AI usage limits: Claude Code and codex-work, shown as "66% W  2% H"
+# (weekly, then 5-hour). Click for reset times. One script on ai.claude updates
+# everything; each provider is fetched at most every 5 min.
+#
+# The dim W/H tags need their own color, so each pill is three items in a
+# bracket. Right-side items lay out right to left, so they're added from the
+# pill's end, and each tag is the icon of the item after its number. A bracket
+# draws over its items' outer padding, so the ends have none and 6pt spacers
+# outside the bracket recreate the 12pt gap the other pills get from padding.
+#   [logo 66%]  [W 2%]  [H]
+#    $item       .session  .session_tag
+#
+# Logos: Claude spark (Simple Icons) and OpenAI knot (LobeHub icons), rendered
+# from SVG to 36px PNGs, shown at half scale (18pt) for retina. A fixed
+# icon.width is the icon's whole width, paddings ignored, and the image is
+# placed by its own padding_left: 12 lead-in + 18 logo + 4 before the label.
+USAGE_TAG=(icon.font="Liga SFMono Nerd Font:Bold:11.0"
+           icon.color=$SUBTEXT0
+           icon.y_offset=-1
+           icon.padding_left=3)
+USAGE_PART=(background.drawing=off
+            background.padding_left=0
+            background.padding_right=0)
+
+add_pill_spacer() {
+  sketchybar --add item "$1" right \
+             --set "$1" width=6 "${USAGE_PART[@]}" icon.drawing=off label.drawing=off
+}
+
+add_usage_pill() {
+  local item="$1" logo="$2"
+  shift 2
+  local toggle="sketchybar --set $item popup.drawing=toggle"
+
+  add_pill_spacer "$item.gap_right"
+  sketchybar --add item "$item.session_tag" right \
+             --set "$item.session_tag" "${USAGE_PART[@]}" "${USAGE_TAG[@]}" icon=H \
+                                       icon.padding_right=12 \
+                                       label.drawing=off \
+                                       click_script="$toggle" \
+             --add item "$item.session" right \
+             --set "$item.session" "${USAGE_PART[@]}" "${USAGE_TAG[@]}" icon=W \
+                                   icon.padding_right=10 \
+                                   label="--" \
+                                   label.padding_left=0 \
+                                   label.padding_right=0 \
+                                   click_script="$toggle" \
+             --add item "$item" right \
+             --set "$item" "${USAGE_PART[@]}" \
+                           icon.width=34 \
+                           icon.padding_left=0 \
+                           icon.padding_right=0 \
+                           icon.background.drawing=on \
+                           icon.background.image="$CONFIG_DIR/icons/$logo" \
+                           icon.background.image.scale=0.5 \
+                           icon.background.image.padding_left=12 \
+                           label="--" \
+                           label.padding_left=5 \
+                           label.padding_right=0 \
+                           popup.align=right \
+                           popup.background.color=$PILL_BG \
+                           popup.background.corner_radius=12 \
+                           popup.background.border_width=1 \
+                           popup.background.border_color=$PILL_BORDER \
+                           popup.blur_radius=30 \
+                           click_script="$toggle" \
+             --add bracket "$item.pill" "$item" "$item.session" "$item.session_tag" \
+             --set "$item.pill" background.drawing=on \
+                                background.color=$PILL_BG \
+                                background.corner_radius=12 \
+                                background.height=30 \
+                                background.border_width=1 \
+                                background.border_color=$PILL_BORDER \
+                                blur_radius=30
+  add_pill_spacer "$item.gap_left"
+
+  for row in "$@"; do
+    sketchybar --add item "$item.$row" popup."$item" \
+               --set "$item.$row" drawing=off \
+                                  background.drawing=off \
+                                  icon.font="Liga SFMono Nerd Font:Normal:14.0" \
+                                  icon.color=$SUBTEXT0 \
+                                  icon.width=90 \
+                                  icon.padding_left=12 \
+                                  label.padding_right=12
+  done
+}
+
+add_usage_pill ai.codex openai.png 7d 5h note
+add_usage_pill ai.claude claude.png 7d model 5h note
+sketchybar --set ai.claude script='./scripts/ai_usage.sh' update_freq=60 \
+           --subscribe ai.claude system_woke
+
+
 # finish config
 sketchybar --update
 sketchybar --hotload on
